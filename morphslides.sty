@@ -1,0 +1,244 @@
+\ProvidesPackage{morphslides}
+
+\RequirePackage{kvoptions}
+
+\SetupKeyvalOptions{
+  family=QP,
+  prefix=QP@
+}
+
+\DeclareStringOption[Untitled]{title}
+\DeclareStringOption[Noah Diewald]{creator}
+
+\ProcessKeyvalOptions*
+
+\ifx\QP@title\@empty
+\newcommand*{\mytitle}{What}
+\else
+\newcommand*{\mytitle}{\QP@title}
+\fi
+
+\ifx\QP@creator\@empty
+\newcommand*{\myauthor}{Whater}
+\else
+\newcommand*{\myauthor}{\QP@creator}
+\fi
+
+\makeatletter
+\newcommand{\@ptsize}{0}
+\makeatother
+
+\usepackage[natbib,style=authoryear,minitems=1,maxbibnames=100]{biblatex}
+%\usepackage{coqdoc}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{etoolbox}
+\usepackage{qtree}
+\usepackage{latexsym}
+%\usepackage{lmodern}
+%\usepackage{unicode-math}
+% \usepackage{enumerate}
+% \usepackage{enumitem}
+\usepackage{bussproofs}
+\usepackage{sfmath}
+\usepackage{sansmath}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{fontspec}
+\usepackage{graphicx}
+\usepackage{xspace}
+\usepackage{expex}
+\usepackage{glossaries-extra}
+\usepackage[oldenum,olditem]{paralist}
+\usepackage{float}
+%\usepackage{fullpage}
+%\usepackage[font={small}]{caption}
+\usepackage{adjustbox}
+%\usepackage{sectsty}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{todonotes}
+\usepackage{cancel}
+\usepackage{hyperref}
+\usepackage{comment}
+\usepackage{setspace}
+\usepackage{pst-arrow}
+\usepackage{tikz}
+\usetikzlibrary{cd,arrows,arrows.meta,shapes,matrix,graphs,graphdrawing}
+\usegdlibrary{layered}
+
+\pgfdeclarelayer{bg}
+\pgfsetlayers{bg,main}
+
+% \setitemize{label=\usebeamerfont*{itemize item}%
+%   \usebeamercolor[fg]{itemize item}
+%   \usebeamertemplate{itemize item}}
+
+\usefonttheme{serif}
+\usefonttheme{professionalfonts}
+%\setsansfont[Ligatures={Common}]{Junicode}
+
+\newfontfamily\mytitlefont{Cormorant}[Ligatures={Common}]
+\setbeamerfont{title}{family=\mytitlefont}
+\setbeamerfont{frametitle}{family=\mytitlefont,size=\Huge}
+\setbeamerfont{block title}{family=\mytitlefont}
+\setbeamerfont{page number in head/foot}{size=\large}
+\setbeamercolor{page number in head/foot}{fg=white}
+%\setbeamercolor{page number in head/foot}{fg=black}
+\setbeamertemplate{footline}[frame number]
+
+\usetheme{default}
+\usecolortheme{dove}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{caption}[numbered]
+\setlength{\columnseprule}{0.4pt}
+
+\setabbreviationstyle{long-short}
+
+%\captionsetup{width=0.5\textwidth}
+
+\preto\tabular{\setcounter{magicrownumbers}{0}}
+\newcounter{magicrownumbers}
+\newcommand\rownumber{\stepcounter{magicrownumbers}\arabic{magicrownumbers}}
+\newcommand\rnum{\makebox[1.3em][r]{\rownumber\space}}
+
+\renewcommand{\theequation}{\Roman{equation}}
+
+\def\checkmark{\tikz\fill[scale=1.1](0,.35) -- (.25,0) -- (1,.7) --
+  (.25,.15) -- cycle;}
+
+\newcolumntype{R}[2]{%
+    >{\adjustbox{angle=#1,lap=\width-(#2)}\bgroup}%
+    l%
+    <{\egroup}%
+}
+\newcommand*\rot{\multicolumn{1}{R{45}{1em}}}%
+
+\newcommand*{\mathcolor}{}
+\def\mathcolor#1#{\mathcoloraux{#1}}
+\newcommand*{\mathcoloraux}[3]{%
+  \protect\leavevmode
+  \begingroup
+    \color#1{#2}#3%
+  \endgroup
+}
+\newcommand{\whiteout}[1]{\mathcolor{white}{#1}}
+
+\newcommand{\syn}[1]{\mathsf{#1}}
+\newcommand{\phon}[1]{\mathrm{#1}}
+\newcommand{\lexem}[3]{\phon{#1} ; \syn{#2} ; #3}
+\newcommand{\lexen}[3]{\lexem{#1}{#2}{#3}}
+\newcommand{\lexe}[3]{\vdash\lexem{#1}{#2}{#3}}
+\newcommand{\lexeline}[3]{$\mathcolor{gray}{\langle}\phon{#1}$, & $\syn{#2}$, & #3 $\mathcolor{gray}{\rangle}$}
+%\newcommand{\lexeline}[3]{$\vdash$ & $\phon{#1}$ & ; & $\syn{#2}$ & ; & #3}
+%\newcommand{\lexet}[3]{\left< \phon{#1}, \syn{#2}, #3 \right>}
+\newcommand{\lexet}[3]{\mathcolor{gray}{\langle} \phon{#1}, \syn{#2}, #3 \mathcolor{gray}{\rangle}}
+\newcommand{\sformt}[2]{\mathcolor{gray}{\langle} \syn{#1}, \phon{#2} \mathcolor{gray}{\rangle}}
+
+\newcommand{\st}[1]{{\sc #1}\xspace}
+
+\newcommand{\possessivecite}[1]{\citeauthor{#1}'s (\citeyear{#1})}
+
+\newcommand{\concat}{\ensuremath{+\!\!\!\!+\,}}
+
+\newcommand{\cgrid}[4]{%
+  \begin{tabular}{p{1em}|p{1em}}
+    \textsf{#1} & \textsf{#2} \\\hline
+    \textsf{#3} & \textsf{#4} \\
+  \end{tabular}}
+
+\newcommand{\clrbox}[1]{%
+  \begin{tikzpicture}\node [draw,circle,fill=#1] {\hspace{1em}};\end{tikzpicture}}
+
+\newcounter{statement}[section]
+\newenvironment{statement}[1][]{\refstepcounter{statement}\par\medskip
+  \textbf{Statement~\thestatement. #1} \rmfamily}{\medskip}
+
+\newlength{\columnheight}
+\setlength{\columnheight}{104cm}
+
+\definecolor{darkgreen}{rgb}{0,0.4,0}
+\definecolor{darkred}{rgb}{0.4,0,0}
+\definecolor{darkblue}{rgb}{0,0,0.4}
+\definecolor{tannish}{RGB}{222,212,185}
+\definecolor{magentish}{RGB}{210,54,125}
+\definecolor{darkbrown}{RGB}{93,38,31}
+\definecolor{frog}{RGB}{1,142,74}
+\definecolor{mixone}{RGB}{58,27,13}
+\definecolor{mixtwo}{RGB}{13,58,27}
+\definecolor{highlighta}{RGB}{255,183,110}
+\definecolor{highlightc}{RGB}{210,224,218}
+\definecolor{highlightb}{RGB}{224,210,222}
+\definecolor{overboard}{RGB}{181,69,0}
+
+\newcommand{\hl}[1]{\textcolor{red}{\bf #1}}
+\newcommand{\af}[1]{\textcolor{rgb,255:red,234;green,29;blue,36}{#1}}
+\newcommand{\gr}[1]{\textcolor{gray}{#1}}
+\newcommand{\mixone}[1]{\textcolor{mixone}{#1}}
+\newcommand{\mixtwo}[1]{\textcolor{mixtwo}{#1}}
+
+\newcommand{\mycolorboxa}[1]{%
+    \colorbox{highlighta}{
+      \begin{minipage}{.96\textwidth} #1 \end{minipage}}}
+
+\newcommand{\mycolorboxb}[1]{%
+    \colorbox{highlighta}{
+      \begin{minipage}[t][1.1em][t]{\textwidth} #1 \end{minipage}}}
+
+\newcommand{\mycolorboxc}[1]{%
+    \colorbox{highlightc}{
+      \begin{minipage}{.96\textwidth} #1 \end{minipage}}}
+
+\newenvironment<>{myblock}[1]{%
+	\begin{actionenv}#2%
+	\def\insertblocktitle{\mycolorboxb{#1}}%
+	\par%
+	\usebeamertemplate{block begin}\leftskip=14pt\rightskip=14pt\vspace{10pt}}
+	{\par\vspace{1em}\usebeamertemplate{block end}
+        \end{actionenv}}
+
+\newenvironment<>{myblocka}[1]{%
+	\begin{actionenv}#2%
+	\def\insertblocktitle{#1}%
+	\par%
+	\usebeamertemplate{block begin}\leftskip=14pt\rightskip=14pt\vspace{10pt}}
+	{\par\vspace{1em}\usebeamertemplate{block end}
+        \end{actionenv}}
+  
+\setmainfont[Ligatures={Common}]{CMU Serif}
+
+\hypersetup{
+  unicode=true,
+  pdftitle=\mytitle,
+  pdfauthor=\myauthor,
+  pdfcreator=\myauthor,
+  pdfproducer=\myauthor,
+  pdfsubject={morphology syntax},
+  colorlinks=true,
+  linkcolor=darkred,
+  citecolor=darkgreen,
+  filecolor=magenta,
+  urlcolor=darkblue
+}
+
+\title{\mytitle}
+\author{\myauthor}
+
+\addbibresource{/home/noah/Documents/math.bib}
+\addbibresource{/home/noah/Documents/quechua.bib}
+\addbibresource{/home/noah/Documents/algonquian.bib}
+\addbibresource{/home/noah/Documents/semantics.bib}
+\addbibresource{/home/noah/Documents/syntax.bib}
+\addbibresource{/home/noah/Documents/morphology.bib}
+\addbibresource{/home/noah/Documents/computational.bib}
+\addbibresource{/home/noah/Documents/compsci.bib}
+\addbibresource{/home/noah/Documents/psycholinguistics.bib}
+\addbibresource{/home/noah/Documents/phonology.bib}
+
+\makenoidxglossaries
+\loadglsentries{../glossary/glossary}
+
+% Local Variables:
+% TeX-engine: xetex
+% End:
