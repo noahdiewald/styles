@@ -139,6 +139,12 @@
 \newenvironment{statement}[1][]{\refstepcounter{statement}\par\medskip
   \textbf{Statement~\thestatement. #1} \rmfamily}{\medskip}
 
+\newcommand{\cgrid}[4]{%
+  \begin{tabular}{p{1em}|p{1em}}
+    \textsf{#1} & \textsf{#2} \\\hline
+    \textsf{#3} & \textsf{#4} \\
+  \end{tabular}}
+
 \definecolor{darkgreen}{rgb}{0,0.4,0}
 \definecolor{darkred}{rgb}{0.4,0,0}
 \definecolor{darkblue}{rgb}{0,0,0.4}
