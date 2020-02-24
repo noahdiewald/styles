@@ -107,6 +107,11 @@
 }
 \newcommand*\rot{\multicolumn{1}{R{45}{1em}}}%
 
+\newfontfamily\ipa{Times New Roman}[Ligatures={Common}]
+\setmainfont[Ligatures={Common}]{CMU Serif}
+
+\newcommand{\?}{\ipa ʔ}
+
 \newcommand{\lx}[1]{{\scshape #1}}
 \newcommand{\wf}[1]{{\itshape #1}}
 \newcommand{\gl}[1]{`#1'}
@@ -152,8 +157,6 @@
 \definecolor{darkred}{rgb}{0.4,0,0}
 \definecolor{darkblue}{rgb}{0,0,0.4}
 
-\setmainfont[Ligatures={Common}]{CMU Serif}
-
 \hypersetup{
   unicode=true,
   pdftitle=\mytitle,
@@ -183,6 +186,9 @@
 \addbibresource{bibliographies/phonology.bib}
 \addbibresource{bibliographies/ideophones.bib}
 \addbibresource{bibliographies/waotededo.bib}
+\addbibresource{bibliographies/classifiers.bib}
+\addbibresource{bibliographies/grammars.bib}
+\addbibresource{bibliographies/philosophy.bib}
 
 \makenoidxglossaries
 \loadglsentries{glossary/glossary}
