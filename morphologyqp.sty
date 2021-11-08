@@ -7,13 +7,13 @@
   prefix=QP@
 }
 
-\DeclareStringOption[Untitled]{title}
+\DeclareStringOption{title}
 \DeclareStringOption[Noah Diewald]{creator}
 
 \ProcessKeyvalOptions*
 
 \ifx\QP@title\@empty
-\newcommand*{\mytitle}{What}
+\newcommand*{\mytitle}{Variability in inflection and realization by proof}
 \else
 \newcommand*{\mytitle}{\QP@title}
 \fi
@@ -23,6 +23,9 @@
 \else
 \newcommand*{\myauthor}{\QP@creator}
 \fi
+
+\title{\mytitle}
+\author{\myauthor}
   
 \usepackage[natbib,style=authoryear,minitems=1,maxbibnames=100]{biblatex}
 % \usepackage{coqdoc}
@@ -37,6 +40,7 @@
 \usepackage{sfmath}
 \usepackage{amssymb}
 \usepackage{amsmath}
+\usepackage{varwidth}
 \usepackage{fontspec}
 \usepackage{graphicx}
 \usepackage{expex}
@@ -130,6 +134,10 @@
 \newcommand{\lexet}[3]{\left< \phon{#1}, \syn{#2}, #3 \right>}
 
 \newcommand{\possessivecite}[1]{\citeauthor{#1}'s (\citeyear{#1})}
+
+\newenvironment{mathprooftree}
+  {\varwidth{.9\textwidth}\centering\leavevmode}
+  {\DisplayProof\endvarwidth}
 
 \newcommand{\concat}{\ensuremath{+\!\!\!\!+\,}}
 \newcommand{\cprod}{\ensuremath{\!\!\times\!\!}}
