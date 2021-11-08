@@ -1,0 +1,192 @@
+\ProvidesPackage{genericabstract}
+
+\RequirePackage{kvoptions}
+
+\SetupKeyvalOptions{
+  family=QP,
+  prefix=QP@
+}
+
+\DeclareStringOption{title}
+\DeclareStringOption[Noah Diewald]{creator}
+
+\ProcessKeyvalOptions*
+
+\ifx\QP@title\@empty
+\newcommand*{\mytitle}{Variability in inflection and realization by proof}
+\else
+\newcommand*{\mytitle}{\QP@title}
+\fi
+
+\ifx\QP@creator\@empty
+\newcommand*{\myauthor}{Whater}
+\else
+\newcommand*{\myauthor}{\QP@creator}
+\fi
+
+\title{\mytitle}
+\author{\myauthor}
+  
+\usepackage[natbib,style=authoryear,minitems=1,maxbibnames=100]{biblatex}
+% \usepackage{coqdoc}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{etoolbox}
+\usepackage{qtree}
+\usepackage{latexsym}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{bussproofs}
+\usepackage{sfmath}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{varwidth}
+\usepackage{fontspec}
+\usepackage{graphicx}
+\usepackage{expex}
+\usepackage{glossaries-extra}
+\usepackage[oldenum,olditem]{paralist}
+\usepackage{float}
+\usepackage{multicol}
+\usepackage{qtree}
+\usepackage[margin=1in]{geometry}
+\usepackage[font={small}]{caption}
+\usepackage{adjustbox}
+\usepackage{sectsty}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{todonotes}
+\usepackage{cancel}
+\usepackage{hyperref}
+\usepackage{comment}
+\usepackage{pst-arrow}
+\usepackage{tikz}
+%\usetikzlibrary{arrows,shapes,matrix,graphs}
+\usetikzlibrary{arrows,arrows.meta,shapes,matrix,graphs,graphdrawing}
+\usegdlibrary{layered}
+
+\setabbreviationstyle{long-short}
+
+\captionsetup{width=0.5\textwidth}
+
+\DeclareFieldFormat{origdate}{\mkbibbrackets{#1}}
+\renewbibmacro*{cite:labeldate+extradate}{%
+  \iffieldundef{origyear}
+    {}
+    {\printorigdate
+     \setunit{\addspace}}%
+  \iffieldundef{labelyear}
+    {}
+    {\printtext[bibhyperref]{\printlabeldateextra}}}
+
+\DeclareCiteCommand{\citeorigyear}
+  {\boolfalse{citetracker}%
+   \boolfalse{pagetracker}%
+   \usebibmacro{prenote}}
+  {\printfield{origyear}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
+
+\renewbibmacro*{date+extradate}{%
+  \iffieldundef{origyear}
+    {}
+    {\printorigdate
+     \setunit{\addspace}}%
+  \iffieldundef{labelyear}
+    {}
+    {\printtext[parens]{%
+       \iflabeldateisdate
+         {\printdateextra}
+         {\printlabeldateextra}}}}
+
+\renewcommand{\theequation}{\Roman{equation}}
+
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) --
+  (.25,.15) -- cycle;}
+
+\newcolumntype{R}[2]{%
+    >{\adjustbox{angle=#1,lap=\width-(#2)}\bgroup}%
+    l%
+    <{\egroup}%
+}
+\newcommand*\rot{\multicolumn{1}{R{45}{1em}}}%
+
+\newfontfamily\ipa{Times New Roman}[Ligatures={Common}]
+\setmainfont[Ligatures={Common}]{Times New Roman}
+
+\newcommand{\?}{\ipa ʔ}
+
+\newcommand{\lx}[1]{{\scshape #1}}
+\newcommand{\wf}[1]{{\itshape #1}}
+\newcommand{\gl}[1]{`#1'}
+\newcommand{\mcat}[1]{\mathsf{#1}}
+\newcommand{\mlx}[1]{\textsc{#1}}
+\newcommand{\me}[3]{\left< \mcat{#1}, \mathrm{#2}, \mlx{#3} \right>}
+\newcommand{\mee}[3]{\left< \mcat{#1}, \mathrm{#2}, #3 \right>}
+
+\newcommand{\syn}[1]{\mathsf{#1}}
+\newcommand{\phon}[1]{\mathrm{#1}}
+\newcommand{\sem}[1]{#1}
+\newcommand{\lexem}[3]{\phon{#1} ; \syn{#2} ; \sem{#3}}
+\newcommand{\lexen}[3]{\lexem{#1}{#2}{#3}}
+\newcommand{\lexe}[3]{\vdash\lexem{#1}{#2}{#3}}
+\newcommand{\lexeline}[3]{$\vdash$ & $\phon{#1}$ & ; & $\syn{#2}$ & ; & #3}
+\newcommand{\lexet}[3]{\left< \phon{#1}, \syn{#2}, #3 \right>}
+
+\newcommand{\possessivecite}[1]{\citeauthor{#1}'s (\citeyear{#1})}
+
+\newenvironment{mathprooftree}
+  {\varwidth{.9\textwidth}\centering\leavevmode}
+  {\DisplayProof\endvarwidth}
+
+\newcommand{\concat}{\ensuremath{+\!\!\!\!+\,}}
+\newcommand{\cprod}{\ensuremath{\!\!\times\!\!}}
+\newcommand{\cocprod}{\ensuremath{\!\!+\!\!}}
+
+\preto\tabular{\setcounter{magicrownumbers}{0}}
+\newcounter{magicrownumbers}
+\newcommand\rownumber{\stepcounter{magicrownumbers}\arabic{magicrownumbers}}
+\newcommand\rnum{\makebox[3em][r]{\rownumber\space}}
+
+\newcounter{statement}[section]
+\newenvironment{statement}[1][]{\refstepcounter{statement}\par\medskip
+  \textbf{Statement~\thestatement. #1} \rmfamily}{\medskip}
+
+\newcommand{\cgrid}[4]{%
+  \begin{tabular}{p{1em}|p{1em}}
+    \textsf{#1} & \textsf{#2} \\\hline
+    \textsf{#3} & \textsf{#4} \\
+  \end{tabular}}
+
+\newcommand{\clrbox}[1]{%
+  \begin{tikzpicture}\node [draw,circle,fill=#1] {\hspace{1em}};\end{tikzpicture}}
+
+\definecolor{darkgreen}{rgb}{0,0.4,0}
+\definecolor{darkred}{rgb}{0.4,0,0}
+\definecolor{darkblue}{rgb}{0,0,0.4}
+
+\hypersetup{
+  unicode=true,
+  pdftitle=\mytitle,
+  pdfauthor=\myauthor,
+  pdfcreator=\myauthor,
+  pdfproducer=\myauthor,
+  pdfsubject={morphology syntax},
+  colorlinks=true,
+  linkcolor=darkred,
+  citecolor=darkgreen,
+  filecolor=magenta,
+  urlcolor=darkblue
+}
+
+\title{\mytitle}
+\author{\myauthor}
+
+\addbibresource{bibliographies/main.bib}
+
+\makenoidxglossaries
+\loadglsentries{glossary/glossary}
+
+% Local Variables:
+% TeX-engine: xetex
+% End:
