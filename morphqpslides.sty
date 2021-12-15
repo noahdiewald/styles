@@ -1,0 +1,173 @@
+\ProvidesPackage{morphqpslides}
+
+\RequirePackage{kvoptions}
+
+\SetupKeyvalOptions{
+  family=QP,
+  prefix=QP@
+}
+
+\DeclareStringOption[Untitled]{title}
+\DeclareStringOption[Noah Diewald]{creator}
+
+\ProcessKeyvalOptions*
+
+\ifx\QP@title\@empty
+\newcommand*{\mytitle}{What}
+\else
+\newcommand*{\mytitle}{\QP@title}
+\fi
+
+\ifx\QP@creator\@empty
+\newcommand*{\myauthor}{Whater}
+\else
+\newcommand*{\myauthor}{\QP@creator}
+\fi
+  
+\usepackage[natbib,style=authoryear,minitems=1,maxbibnames=100]{biblatex}
+%\usepackage{coqdoc}
+\usepackage{qtree}
+\usepackage{latexsym}
+%\usepackage{lmodern}
+%\usepackage{unicode-math}
+%\usepackage{enumerate}
+%\usepackage{enumitem}
+\usepackage{ragged2e}
+\usepackage{bussproofs}
+\usepackage{sfmath}
+\usepackage{sansmath}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{fontspec}
+\usepackage{graphicx}
+\usepackage{xspace}
+\usepackage{expex}
+\usepackage{glossaries-extra}
+\usepackage[oldenum,olditem]{paralist}
+\usepackage{float}
+\usepackage{qtree}
+%\usepackage{fullpage}
+%\usepackage[font={small}]{caption}
+\usepackage{adjustbox}
+%\usepackage{sectsty}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{todonotes}
+\usepackage{cancel}
+\usepackage{hyperref}
+\usepackage{comment}
+\usepackage{pst-arrow}
+\usepackage{tikz}
+\usetikzlibrary{arrows,shapes,matrix}
+
+% \setitemize{label=\usebeamerfont*{itemize item}%
+%   \usebeamercolor[fg]{itemize item}
+%   \usebeamertemplate{itemize item}}
+
+\usefonttheme{serif}
+\usefonttheme{professionalfonts}
+%\setsansfont[Ligatures={Common}]{Junicode}
+
+\newfontfamily\mytitlefont{ETBookOT}[Ligatures={Common}]
+%\newfontfamily\mytitlefont{Futura LT}[Ligatures={Common}]
+\setbeamerfont{title}{family=\mytitlefont}
+\setbeamerfont{frametitle}{family=\mytitlefont}
+\setbeamerfont{block title}{family=\mytitlefont}
+\setbeamerfont{page number in head/foot}{size=\large}
+\setbeamercolor{page number in head/foot}{fg=black}
+\setbeamertemplate{footline}[frame number]
+
+\usetheme{default}
+\usecolortheme{dove}
+\setbeamertemplate{navigation symbols}{}
+
+\setabbreviationstyle{long-short}
+
+%\captionsetup{width=0.5\textwidth}
+
+\renewcommand{\theequation}{\Roman{equation}}
+
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) --
+  (.25,.15) -- cycle;}
+
+\newcolumntype{R}[2]{%
+    >{\adjustbox{angle=#1,lap=\width-(#2)}\bgroup}%
+    l%
+    <{\egroup}%
+}
+\newcommand*\rot{\multicolumn{1}{R{45}{1em}}}%
+
+\newcommand*{\mathcolor}{}
+\def\mathcolor#1#{\mathcoloraux{#1}}
+\newcommand*{\mathcoloraux}[3]{%
+  \protect\leavevmode
+  \begingroup
+    \color#1{#2}#3%
+  \endgroup
+}
+\newcommand{\whiteout}[1]{\mathcolor{white}{#1}}
+
+
+\newcommand{\lx}[1]{{\scshape #1}}
+\newcommand{\wf}[1]{{\itshape #1}}
+\newcommand{\gl}[1]{`#1'}
+\newcommand{\mcat}[1]{\mathsf{#1}}
+\newcommand{\mlx}[1]{\textsc{#1}}
+\newcommand{\me}[3]{\left< \mcat{#1}, \mathrm{#2}, \mlx{#3} \right>}
+\newcommand{\mee}[3]{\left< \mcat{#1}, \mathrm{#2}, #3 \right>}
+
+\newcommand{\syn}[1]{\mathsf{#1}}
+\newcommand{\phon}[1]{\mathrm{#1}}
+\newcommand{\lexem}[3]{\phon{#1} ; \syn{#2} ; #3}
+\newcommand{\lexen}[3]{\lexem{#1}{#2}{#3}}
+\newcommand{\lexe}[3]{\vdash\lexem{#1}{#2}{#3}}
+\newcommand{\lexeline}[3]{$\mathcolor{gray}{\langle}\phon{#1}$, & $\syn{#2}$, & #3 $\mathcolor{gray}{\rangle}$}
+%\newcommand{\lexeline}[3]{$\vdash$ & $\phon{#1}$ & ; & $\syn{#2}$ & ; & #3}
+%\newcommand{\lexet}[3]{\left< \phon{#1}, \syn{#2}, #3 \right>}
+\newcommand{\lexet}[3]{\mathcolor{gray}{\langle} \phon{#1}, \syn{#2}, #3 \mathcolor{gray}{\rangle}}
+\newcommand{\sformt}[2]{\mathcolor{gray}{\langle} \syn{#1}, \phon{#2} \mathcolor{gray}{\rangle}}
+
+\newcommand{\hl}[1]{\textcolor{red}{\bf #1}}
+
+\newcommand{\st}[1]{{\sc #1}\xspace}
+
+\newcommand{\possessivecite}[1]{\citeauthor{#1}'s (\citeyear{#1})}
+
+\newcommand{\concat}{\ensuremath{+\!\!\!\!+\,}}
+
+\newcounter{statement}[section]
+\newenvironment{statement}[1][]{\refstepcounter{statement}\par\medskip
+  \textbf{Statement~\thestatement. #1} \rmfamily}{\medskip}
+
+\definecolor{darkgreen}{rgb}{0,0.4,0}
+\definecolor{darkred}{rgb}{0.4,0,0}
+\definecolor{darkblue}{rgb}{0,0,0.4}
+
+\setmainfont[Ligatures={Common}]{CMU Serif}
+
+\hypersetup{
+  unicode=true,
+  pdftitle=\mytitle,
+  pdfauthor=\myauthor,
+  pdfcreator=\myauthor,
+  pdfproducer=\myauthor,
+  pdfsubject={morphology syntax},
+  colorlinks=true,
+  linkcolor=darkred,
+  citecolor=darkgreen,
+  filecolor=magenta,
+  urlcolor=darkblue
+}
+
+\title{\mytitle}
+\author{\myauthor}
+
+\addbibresource{bibliographies/main.bib}
+
+\makenoidxglossaries
+\loadglsentries{glossary/glossary}
+
+% Local Variables:
+% TeX-engine: xetex
+% End:
