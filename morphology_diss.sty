@@ -44,7 +44,7 @@
 \usepackage{fontspec}
 \usepackage{graphicx}
 \usepackage{expex}
-\usepackage[toc=true]{glossaries-extra}
+\usepackage[toc=true,xindy]{glossaries-extra}
 \usepackage[oldenum,olditem]{paralist}
 \usepackage{float}
 \usepackage{multicol}
@@ -68,6 +68,7 @@
 \usegdlibrary{layered}
 
 \setabbreviationstyle{long-short}
+\GlsSetXdyMinRangeLength{1}
 
 \doublespacing
 
@@ -117,6 +118,7 @@
 
 \newfontfamily\ipa{Times New Roman}[Ligatures={Common}]
 \setmainfont[Ligatures={Common}]{CMU Serif}
+\setmonofont{DejaVu Sans Mono}
 
 \newcommand{\?}{\ipa ʔ}
 
@@ -136,6 +138,7 @@
 \newcommand{\lexe}[3]{\vdash\lexem{#1}{#2}{#3}}
 \newcommand{\lexeline}[3]{$\vdash$ & $\phon{#1}$ & ; & $\syn{#2}$ & ; & #3}
 \newcommand{\lexet}[3]{\left< \phon{#1}, \syn{#2}, #3 \right>}
+\newcommand{\dmroot}{$\sqrt{\text{root}}$}
 
 \newcommand{\possessivecite}[1]{\citeauthor{#1}'s (\citeyear{#1})}
 
@@ -187,9 +190,6 @@
 \author{\myauthor}
 
 \addbibresource{bibliographies/main.bib}
-
-\makeglossaries
-\loadglsentries{glossary/glossary}
 
 % Local Variables:
 % TeX-engine: xetex
