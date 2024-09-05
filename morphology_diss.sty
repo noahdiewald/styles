@@ -176,6 +176,14 @@
 \newcommand{\clrbox}[1]{%
   \begin{tikzpicture}\node [draw,circle,fill=#1] {\hspace{1em}};\end{tikzpicture}}
 
+\newcommand{\partext}[4]{%
+  {\footnotesize \underline{#1 -- #2} \newline}
+  \begin{minipage}{\textwidth}
+    \parbox[t][][t]{0.4\textwidth}{\raggedright #3}
+    \hspace{1cm}
+    \parbox[t][][t]{0.4\textwidth}{\raggedright #4}
+  \end{minipage}}
+
 \definecolor{darkgreen}{rgb}{0,0.4,0}
 \definecolor{darkred}{rgb}{0.4,0,0}
 \definecolor{darkblue}{rgb}{0,0,0.4}
