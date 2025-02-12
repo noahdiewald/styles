@@ -123,6 +123,7 @@
 
 \newfontfamily\ipa{Times New Roman}[Ligatures={Common}]
 \newfontfamily\miscf{Noto Sans}
+\newfontfamily\fancy{GowunDodum-Regular.ttf}
 \setmonofont{DejaVu Sans Mono}
 
 \newcommand{\?}{\ipa ʔ}
@@ -135,10 +136,13 @@
 \newcommand{\wf}[1]{{\itshape #1}}
 \newcommand{\gl}[1]{`#1'}
 \newcommand{\mcat}[1]{\mathsf{#1}}
+\newcommand{\fk}[1]{\text{\fancy{#1}}_k}
+\newcommand{\pr}[1]{\text{#1}}
+
 \newcommand{\mlx}[1]{\textsc{#1}}
 \newcommand{\me}[3]{\left< \mcat{#1}, \mathrm{#2}, \mlx{#3} \right>}
 \newcommand{\mee}[3]{\left< \mcat{#1}, \mathrm{#2}, #3 \right>}
-\newcommand{\mfe}[2]{\left< \mcat{#1}, \mathrm{#2} \right>}
+\newcommand{\mfe}[2]{\left< \mcat{#1}, #2 \right>}
 
 \newcommand{\syn}[1]{\mathsf{#1}}
 \newcommand{\phon}[1]{\mathrm{#1}}
@@ -146,6 +150,11 @@
 \newcommand{\lexem}[3]{\phon{#1} ; \syn{#2} ; \sem{#3}}
 \newcommand{\lexen}[3]{\lexem{#1}{#2}{#3}}
 \newcommand{\lexe}[3]{\vdash\lexem{#1}{#2}{#3}}
+\newcommand{\lexes}[3]{\begin{aligned}
+  & \vdash\phon{#1}; \\
+  & \text{\hspace{1em}}\syn{#2}; \\
+  & \text{\hspace{1em}}\sem{#3}
+\end{aligned}}
 \newcommand{\lexeline}[3]{$\vdash$ & $\phon{#1}$ & ; & $\syn{#2}$ & ; & #3}
 \newcommand{\lexet}[3]{\left< \phon{#1}, \syn{#2}, #3 \right>}
 \newcommand{\dmroot}{$^{\sqrt{}}\text{root}$}
