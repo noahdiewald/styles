@@ -121,7 +121,8 @@
 }
 \newcommand*\rot{\multicolumn{1}{R{45}{1em}}}%
 
-\newfontfamily\ipa{Times New Roman}[Ligatures={Common}]
+\defaultfontfeatures{Ligatures={TeX}}
+\newfontfamily\ipa{Times New Roman}
 \newfontfamily\miscf{Noto Sans}
 \newfontfamily\fancy{GowunDodum-Regular.ttf}
 \setmonofont{DejaVu Sans Mono}
@@ -132,7 +133,7 @@
 \newcommand{\pht}[1]{[{\ipa #1}]}
 \newcommand{\pren}{$^\text{\tiny N}$}
 
-\newcommand{\lx}[1]{{\scshape #1}}
+\newcommand{\lx}[1]{{\sffamily\scshape #1}}
 \newcommand{\wf}[1]{{\itshape #1}}
 \newcommand{\gl}[1]{`#1'}
 \newcommand{\mcat}[1]{\mathsf{#1}}
@@ -157,7 +158,9 @@
 \end{aligned}}
 \newcommand{\lexeline}[3]{$\vdash$ & $\phon{#1}$ & ; & $\syn{#2}$ & ; & #3}
 \newcommand{\lexet}[3]{\left< \phon{#1}, \syn{#2}, #3 \right>}
-\newcommand{\dmroot}{$^{\sqrt{}}\text{root}$}
+%\newcommand{\dmroot}{$^{\sqrt{}}\text{root}$}
+\newcommand{\dmr}[1]{$^{\sqrt{}}\text{#1}$}
+\newcommand{\dmroot}{\dmr{root}}
 
 \newcommand{\possessivecite}[1]{\citeauthor{#1}'s (\citeyear{#1})}
 
