@@ -76,6 +76,13 @@
 \usetikzlibrary{arrows,arrows.meta,shapes,matrix,graphs,graphdrawing}
 \usegdlibrary{layered}
 \usepackage{langsci-avm}
+\usepackage{tocbasic}
+\renewcommand*{\listoffigures}{\listoftoc[\listfigurename]{lof}}
+\renewcommand*{\listoftables}{\listoftoc[\listtablename]{lot}}
+%\setuptoc{lof}{leveldown,totoc}
+%\setuptoc{lot}{leveldown,totoc}
+\setuptoc{lof}{totoc}
+\setuptoc{lot}{totoc}
 
 \newglossary[llg]{ling}{lls}{llo}{Linguistic Glosses}
 
